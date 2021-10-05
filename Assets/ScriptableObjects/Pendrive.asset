@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Pendrive
   m_EditorClassIdentifier: 
   itemName: Pendrive
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: fa542f99e3671d547826bce99ff16774, type: 3}

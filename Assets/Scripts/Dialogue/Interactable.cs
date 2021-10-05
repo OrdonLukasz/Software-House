@@ -18,7 +18,8 @@ public class Interactable : MonoBehaviour
     //[SerializeField]
     public GameObject NpcMessage;
     public GameObject PrefabNpcMessage;
-   
+    
+
     public bool isInteracting;
 
     [SerializeField]

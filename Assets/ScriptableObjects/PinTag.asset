@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PinTag
   m_EditorClassIdentifier: 
   itemName: PinTag
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 39149f47315e3fe488f783353d14670c, type: 3}

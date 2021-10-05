@@ -8,6 +8,7 @@ public class AchievementSystem : Observer
 
     public List<string> notificationObjects = new List<string>();
     public List<Item> itemsList = new List<Item>();
+    public Image itemContainer;
 
     private void Start()
     {
@@ -26,6 +27,9 @@ public class AchievementSystem : Observer
             if (notificationObjects[0] == value.ToString())
             {
                 talkingBoubble.text = "Proszę, o to " + itemsList[0].name;
+
+                itemContainer.sprite = itemsList[0].itemSprite;
+
                 notificationObjects.Remove(value.ToString());
                 itemsList.RemoveAt(0);
                
@@ -34,6 +38,7 @@ public class AchievementSystem : Observer
             else
             {
                 talkingBoubble.text = "Idź po " + itemsList[0].name;
+
                 return;
             }
 

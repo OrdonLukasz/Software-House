@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ProjectBrief
   m_EditorClassIdentifier: 
   itemName: ProjectBrief
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: e6deccb6cccfaf246b5e34fb49f592b0, type: 3}
