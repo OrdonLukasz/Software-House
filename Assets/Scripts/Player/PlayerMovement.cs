@@ -7,20 +7,17 @@ using DG.Tweening;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
-    
-
     [SerializeField]
     private float platerMovementSpeed = 3.0f;
-
     [SerializeField]
     private float mouseSensitivity = 5.0f;
     [SerializeField]
     private float cameraSmoothValue = 2.0f;
-
     [SerializeField]
     private float jumpForwardForce = 100.0f;
     [SerializeField]
     private float jumpUpForce = 2.0f;
+
     [SerializeField]
     private Transform cameraCenter;
     [SerializeField]
@@ -29,20 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private float playerHeight;
     private Rigidbody playerRigidbody;
 
-    public Transform empty;
-    public Transform lookFor;
-
-    [SerializeField]
-    public float sightRotationSpeed;
-    [SerializeField]
-    private RectTransform weaponSight;
-    [SerializeField]
-
-    private bool isGrounded;
-    private bool isMoving;
-
-    public Vector2 mouseLook;
-    public Vector2 smoothV;
     private Quaternion lookRotation;
     private Vector3 lookPoint;
     private Vector2 middleScreenPosition;
@@ -52,11 +35,19 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _look;
     private Vector3 movement;
 
+    public Transform empty;
+    public Transform lookFor;
+
+    public float sightRotationSpeed;
+
+    private bool isGrounded;
+    private bool isMoving;
+
+    public Vector2 mouseLook;
+    public Vector2 smoothV;
+
     private void Start()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
-
         playerHeight = GetComponent<CapsuleCollider>().radius;
         playerRigidbody = GetComponent<Rigidbody>();
         playerCamera = Camera.main;
@@ -82,8 +73,6 @@ public class PlayerMovement : MonoBehaviour
         direction = playerRigidbody.rotation * direction;
         playerRigidbody.MovePosition(playerRigidbody.position + direction * platerMovementSpeed * Time.fixedDeltaTime);
         isMoving = true;
-        
-
     }
 
     IEnumerator Jump()
@@ -99,24 +88,22 @@ public class PlayerMovement : MonoBehaviour
         }
         if (isGrounded)
         {
-
             if (Keyboard.current.spaceKey.wasReleasedThisFrame)
             {
                 playerAnimator.SetBool("isJumping", true);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<Rigidbody>().AddForce(((transform.up * jumpUpForce) + transform.forward) * jumpForwardForce);
             }
-            
         }
         else
         {
-             playerAnimator.SetBool("isJumping", false);
+            playerAnimator.SetBool("isJumping", false);
         }
     }
+
     public void KeyboardMovement()
     {
-
-        if (Keyboard.current.shiftKey.isPressed && isMoving == true ) //run
+        if (Keyboard.current.shiftKey.isPressed && isMoving == true) //run
         {
             platerMovementSpeed = 5;
         }
@@ -131,7 +118,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            
             playerAnimator.SetBool("isWalking", false);
         }
         if (translation.z < 0)
@@ -140,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-
             playerAnimator.SetBool("isWalking", false);
         }
     }
@@ -159,13 +144,13 @@ public class PlayerMovement : MonoBehaviour
             cameraCenter.rotation = Quaternion.Euler(45f, cameraCenter.rotation.eulerAngles.y, 0);
             mouseLook.y = -45;
         }
-
         if (cameraCenter.rotation.eulerAngles.x > 180f && cameraCenter.rotation.eulerAngles.x < 315f)
         {
             cameraCenter.rotation = Quaternion.Euler(315f, cameraCenter.rotation.eulerAngles.y, 0);
             mouseLook.y = 45;
         }
     }
+
     private void UpdateSight()
     {
         RaycastHit hit;
@@ -177,14 +162,13 @@ public class PlayerMovement : MonoBehaviour
             lookRotation = Quaternion.LookRotation(lookDirection);
 
             lookFor.position = lookPoint;
-
         }
         else
         {
             lookFor.position = empty.position;
         }
-
     }
+
     private void OnMove(InputValue value)
     {
         _move = value.Get<Vector2>();
@@ -193,24 +177,4 @@ public class PlayerMovement : MonoBehaviour
     {
         _look = value.Get<Vector2>();
     }
-    ////private void OnCollisionEnter(Collision collision)
-    ////{
-    ////    if (collision.gameObject.CompareTag("box1"))
-    ////    {
-
-    ////        if (GetComponent<GameController>().player.transform.position.magnitude < 0.5f)
-    ////        {
-    ////            subject.Notify();
-    ////        }
-    ////    }
-    ////}
-    //public void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("box1"))
-    //    {
-
-    //            subject.Notify();
-            
-    //    }
-    //}
 }

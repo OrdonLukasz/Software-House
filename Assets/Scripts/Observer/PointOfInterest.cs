@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class PointOfInterest : Subject
 {
-    //  [SerializeField]
     public string achivementName;
 
     private void Update()
