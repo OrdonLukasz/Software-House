@@ -7,6 +7,8 @@ using DG.Tweening;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
+    
+
     [SerializeField]
     private float platerMovementSpeed = 3.0f;
 
@@ -18,14 +20,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float jumpForwardForce = 100.0f;
     [SerializeField]
-    private float jumpUpForce = 2f;
+    private float jumpUpForce = 2.0f;
     [SerializeField]
     private Transform cameraCenter;
     [SerializeField]
     private Animator playerAnimator;
 
     private float playerHeight;
-    private Rigidbody rigidbody;
+    private Rigidbody playerRigidbody;
 
     public Transform empty;
     public Transform lookFor;
@@ -56,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
 
         playerHeight = GetComponent<CapsuleCollider>().radius;
-        rigidbody = GetComponent<Rigidbody>();
+        playerRigidbody = GetComponent<Rigidbody>();
         playerCamera = Camera.main;
         middleScreenPosition = new Vector2(Screen.width / 2, Screen.height / 2);
     }
@@ -77,8 +79,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void moveCharacter(Vector3 direction)
     {
-        direction = rigidbody.rotation * direction;
-        rigidbody.MovePosition(rigidbody.position + direction * platerMovementSpeed * Time.fixedDeltaTime);
+        direction = playerRigidbody.rotation * direction;
+        playerRigidbody.MovePosition(playerRigidbody.position + direction * platerMovementSpeed * Time.fixedDeltaTime);
         isMoving = true;
         
 
@@ -132,7 +134,15 @@ public class PlayerMovement : MonoBehaviour
             
             playerAnimator.SetBool("isWalking", false);
         }
+        if (translation.z < 0)
+        {
+            playerAnimator.SetBool("isWalking", true);
+        }
+        else
+        {
 
+            playerAnimator.SetBool("isWalking", false);
+        }
     }
 
     public void MouseMovement()
@@ -183,4 +193,24 @@ public class PlayerMovement : MonoBehaviour
     {
         _look = value.Get<Vector2>();
     }
+    ////private void OnCollisionEnter(Collision collision)
+    ////{
+    ////    if (collision.gameObject.CompareTag("box1"))
+    ////    {
+
+    ////        if (GetComponent<GameController>().player.transform.position.magnitude < 0.5f)
+    ////        {
+    ////            subject.Notify();
+    ////        }
+    ////    }
+    ////}
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("box1"))
+    //    {
+
+    //            subject.Notify();
+            
+    //    }
+    //}
 }
