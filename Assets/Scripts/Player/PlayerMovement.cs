@@ -120,13 +120,13 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isWalking", false);
         }
-        if (translation.z < 0)
+        if (translation.z > 0)
         {
-            playerAnimator.SetBool("isWalking", true);
+            playerAnimator.SetBool("isWalkingBack", true);
         }
         else
         {
-            playerAnimator.SetBool("isWalking", false);
+            playerAnimator.SetBool("isWalkingBack", false);
         }
     }
 

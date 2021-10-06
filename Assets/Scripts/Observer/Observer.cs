@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public abstract class Observer : MonoBehaviour
 {
     public abstract void OnNotify(object value, NotificationType notificationType, ref Text NPCText, NotificationType notificationNPCText);
-
 }
+
 public abstract class Subject : MonoBehaviour
 {
     private List<Observer> _observers = new List<Observer>();
@@ -15,7 +15,6 @@ public abstract class Subject : MonoBehaviour
     {
         _observers.Add(observer);
     }
-
     public void Notify(object value, NotificationType notificationType, ref Text NPCText, NotificationType notificationNPCText)
     {
         foreach (var observer in _observers)

@@ -11,24 +11,26 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     private GameObject interactWith;
     [SerializeField]
-    private bool wasDisplayed;
+    private float messageOffsetY = 3.0f;
+    [SerializeField]
+    private float messageOffsetX;
+    [SerializeField]
+    private float messageRotationOffset = -180f;
 
     public GameObject NpcMessage;
     public GameObject PrefabNpcMessage;
 
     public bool isInteracting;
 
-    public string communicateAction;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             NpcMessage = Instantiate(PrefabNpcMessage, transform);
-            NpcMessage.transform.position = transform.position + new Vector3(0, 3, 0);
-            Vector3 newRotation = new Vector3(0, -90, 0);
+            NpcMessage.transform.position = transform.position + new Vector3(messageOffsetX, messageOffsetY, 0);
+            Vector3 newRotation = NpcMessage.transform.eulerAngles;
+            newRotation = new Vector3(0, messageRotationOffset, 0);
             NpcMessage.transform.eulerAngles = newRotation;
-            wasDisplayed = true;
             NpcMessage.SetActive(true);
             isInteracting = true;
             interactWith = other.gameObject;

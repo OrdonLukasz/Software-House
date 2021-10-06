@@ -7,9 +7,9 @@ public class AchievementSystem : Observer
 {
     public List<string> notificationObjects = new List<string>();
     public List<Item> itemsList = new List<Item>();
+    public List<ChildrenHolder> inventoryItemList = new List<ChildrenHolder>();
 
-    public Image itemContainer;
-
+    public Transform inventoryParrent;
     public InformationManager informationManager;
 
     private void Start()
@@ -19,40 +19,51 @@ public class AchievementSystem : Observer
         {
             poi.RegisterObserver(this);
         }
+        foreach (Transform child in inventoryParrent)
+        {
+            inventoryItemList.Add(child.GetComponent<ChildrenHolder>());
+        }
     }
 
     public override void OnNotify(object value, NotificationType notivicationType, ref Text talkingBoubble, NotificationType notificationNPCText)
     {
-
         if (notivicationType == NotificationType.AchievementUnlocked)
         {
-            if (notificationObjects[0] == value.ToString())
+            if (notificationObjects.Count > 0)
             {
-                talkingBoubble.text = "Proszę, o to " + itemsList[0].name;
-                itemContainer.sprite = itemsList[0].itemSprite;
-                notificationObjects.Remove(value.ToString());
-                itemsList.RemoveAt(0);
-                if(itemsList.Count== 0)
+                if (notificationObjects[0] == value.ToString())
                 {
-                    informationManager.OpenAlert();
-                }
-                return;
-            }
-            //if(notificationObjects.Count == 0)
-            //{
-            //    talkingBoubble.text = "Wykonałeś swoje zadania";
-            //}
-            else
-            {
-                talkingBoubble.text = "Idź po " + itemsList[0].name;
-                return;
-            }
+                    talkingBoubble.text = "Proszę, o to " + itemsList[0].name;
 
+                    for (int i = 0; i < inventoryItemList.Count; i++)
+                    {
+                        if (inventoryItemList[i].isEmpty == true)
+                        {
+                            inventoryItemList[i].itemHolderChildren.sprite = itemsList[0].itemSprite;
+                            inventoryItemList[i].isEmpty = false;
+
+                            notificationObjects.Remove(value.ToString());
+                            itemsList.RemoveAt(0);
+                            if (itemsList.Count == 0)
+                            {
+                                informationManager.OpenAlert();
+                            }
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    talkingBoubble.text = "Idź po " + itemsList[0].name;
+                    return;
+                }
+                }
+            }
         }
     }
-}
-public enum NotificationType
-{
-    AchievementUnlocked,
-    AchievementNPCText
-}
+
+    public enum NotificationType
+    {
+        AchievementUnlocked,
+        AchievementNPCText
+    }

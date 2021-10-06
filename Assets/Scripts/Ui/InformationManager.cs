@@ -22,7 +22,6 @@ public class InformationManager : MonoSingleton<InformationManager>
         }
         AlertClosed = null;
     }
-
     public void CloseAlertMessage()
     {
         Sequence mySequence = DOTween.Sequence();
