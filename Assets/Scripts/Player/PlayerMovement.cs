@@ -7,6 +7,12 @@ using DG.Tweening;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform empty;
+    public Transform lookFor;
+    public Vector2 mouseLook;
+    public Vector2 smoothV;
+    public float sightRotationSpeed;
+    
     [SerializeField]
     private float platerMovementSpeed = 3.0f;
     [SerializeField]
@@ -17,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private float jumpForwardForce = 100.0f;
     [SerializeField]
     private float jumpUpForce = 2.0f;
-
     [SerializeField]
     private Transform cameraCenter;
     [SerializeField]
@@ -25,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float playerHeight;
     private Rigidbody playerRigidbody;
-
     private Quaternion lookRotation;
     private Vector3 lookPoint;
     private Vector2 middleScreenPosition;
@@ -34,17 +38,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _move;
     private Vector2 _look;
     private Vector3 movement;
-
-    public Transform empty;
-    public Transform lookFor;
-
-    public float sightRotationSpeed;
-
     private bool isGrounded;
     private bool isMoving;
 
-    public Vector2 mouseLook;
-    public Vector2 smoothV;
 
     private void Start()
     {
@@ -53,21 +49,25 @@ public class PlayerMovement : MonoBehaviour
         playerCamera = Camera.main;
         middleScreenPosition = new Vector2(Screen.width / 2, Screen.height / 2);
     }
-    public void Update()
+    
+    private void Update()
     {
         UpdateMovement();
         StartCoroutine(Jump());
     }
+    
     private void FixedUpdate()
     {
         moveCharacter(movement);
         KeyboardMovement();
         MouseMovement();
     }
+    
     private void UpdateMovement()
     {
         movement = new Vector3(_move.x, 0, _move.y);
     }
+    
     private void moveCharacter(Vector3 direction)
     {
         direction = playerRigidbody.rotation * direction;
@@ -173,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _move = value.Get<Vector2>();
     }
+    
     private void OnLook(InputValue value)
     {
         _look = value.Get<Vector2>();
