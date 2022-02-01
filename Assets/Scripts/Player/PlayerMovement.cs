@@ -158,9 +158,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             lookPoint = hit.point;
-
             lookRotation = Quaternion.LookRotation(lookDirection);
-
             lookFor.position = lookPoint;
         }
         else
