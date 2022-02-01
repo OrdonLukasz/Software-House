@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public abstract class Observer : MonoBehaviour
 {
     public abstract void OnNotify(object value, NotificationType notificationType, ref Text NPCText, NotificationType notificationNPCText);
