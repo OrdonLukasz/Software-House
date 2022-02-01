@@ -8,6 +8,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class Interactable : MonoBehaviour
 {
+    public GameObject NpcMessage;
+    public GameObject PrefabNpcMessage;
+
+    public bool isInteracting;
+    
     [SerializeField]
     private GameObject interactWith;
     [SerializeField]
@@ -16,11 +21,6 @@ public class Interactable : MonoBehaviour
     private float messageOffsetX;
     [SerializeField]
     private float messageRotationOffset = -180f;
-
-    public GameObject NpcMessage;
-    public GameObject PrefabNpcMessage;
-
-    public bool isInteracting;
 
     private void OnTriggerEnter(Collider other)
     {
